@@ -34,17 +34,21 @@ public class Drive extends Command {
 
 		if (Robot.oi.joystick.getRawButton(Robot.oi.turnBack)) {
 			Robot.driveTrain.autoRotate(179.9f);
+			Robot.driveTrain.repeat = true;
 		}
 		if (Robot.oi.joystick.getRawButton(Robot.oi.turnFoward)) {
-			Robot.driveTrain.autoRotate(0.1f);
+			Robot.driveTrain.autoRotate(0.0f);
+			Robot.driveTrain.repeat = true;
 		}
 
 		if (Robot.oi.joystick.getRawButton(Robot.oi.turnLeft)) {
 			Robot.driveTrain.autoRotate(90.0f);
+			Robot.driveTrain.repeat = true;
 		}
 
 		if (Robot.oi.joystick.getRawButton(Robot.oi.turnRight)) {
 			Robot.driveTrain.autoRotate(-90.0f);
+			Robot.driveTrain.repeat = true;
 		}
 
 		if (Robot.oi.joystick.getRawButton(Robot.oi.resetPosition)) {

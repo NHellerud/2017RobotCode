@@ -26,6 +26,8 @@ public class DriveTrain extends Subsystem {
 	final VictorSP bRMotor = new VictorSP(RobotMap.backRightMotor);
 
 	RobotDrive driveTrain = new RobotDrive(fLMotor, bLMotor, fRMotor, bRMotor);
+	
+	public static boolean repeat = false;
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
@@ -79,7 +81,7 @@ public class DriveTrain extends Subsystem {
 
 	@SuppressWarnings("deprecation")
 	public void autoRotate(float targetAngle) {
-		float acceptedError = 2.0f;
+		float acceptedError = 1.0f;
 		boolean turn = false;
 		int timeSince = 1;
 
@@ -88,19 +90,25 @@ public class DriveTrain extends Subsystem {
 			turn = whichWay(targetAngle);
 
 			if (!turn) {
-				set(fLMotor, ((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) + .1);
-				set(fRMotor, ((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) + .1);
-				set(bLMotor, ((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) + .1);
-				set(bRMotor, ((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw())))/ 360) + .1);
+				set(fLMotor, ((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) + .125);
+				set(fRMotor, ((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) + .125);
+				set(bLMotor, ((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) + .125);
+				set(bRMotor, ((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw())))/ 360) + .125);
 				
 			} else {
-				set(fLMotor, -((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) - .1);
-				set(fRMotor, -((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) - .1);
-				set(bLMotor, -((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) - .1);
-				set(bRMotor, -((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) - .1);
+				set(fLMotor, -((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) - .125);
+				set(fRMotor, -((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) - .125);
+				set(bLMotor, -((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) - .125);
+				set(bRMotor, -((Math.abs(Math.abs(targetAngle) - Math.abs(Robot.navX.getYaw()))) / 360) - .125);
 			
 			}
 			SmartDashboard.putInt("Time Since: ", timeSince);
+		}
+		
+		if(repeat){
+			repeat = false;
+			autoRotate(targetAngle);
+			
 		}
 
 	}
